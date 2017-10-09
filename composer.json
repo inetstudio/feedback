@@ -1,0 +1,28 @@
+{
+    "name": "inetstudio/feedback",
+    "description": "Package for feedback",
+    "homepage": "https://github.com/inetstudio/feedback",
+    "license": "MIT",
+    "authors": [
+      {
+        "name": "Konstantin Bukin",
+        "email": "bukin@inetstudio.ru"
+      }
+    ],
+    "require": {
+      "guzzlehttp/guzzle": "^6.3",
+      "inetstudio/admin-panel": "1.5.*"
+    },
+    "autoload": {
+      "psr-4": {
+        "InetStudio\\Feedback\\": "src/"
+      }
+    },
+    "extra": {
+      "laravel": {
+        "providers": [
+          "InetStudio\\Feedback\\FeedbackServiceProvider"
+        ]
+      }
+    }
+}
