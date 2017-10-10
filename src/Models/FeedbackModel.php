@@ -2,6 +2,7 @@
 
 namespace InetStudio\Feedback\Models;
 
+use App\User;
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -53,5 +54,15 @@ class FeedbackModel extends Model
     public function scopeUnread($query)
     {
         return $query->where('is_read', 0);
+    }
+
+    /**
+     * Обратное отношение с моделью пользователя
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

@@ -10,6 +10,7 @@
       }
     ],
     "require": {
+      "arcanedev/no-captcha": "^5.0",
       "guzzlehttp/guzzle": "^6.3",
       "inetstudio/admin-panel": "1.5.*"
     },
