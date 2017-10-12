@@ -29,7 +29,7 @@ return [
         'columns' => [
             'index' => [
                 ['data' => 'id', 'name' => 'id', 'title' => 'ID'],
-                ['data' => 'status', 'name' => 'is_read', 'title' => 'Статус', 'searchable' => false],
+                ['data' => 'read', 'name' => 'is_read', 'title' => 'Прочитано', 'searchable' => false],
                 ['data' => 'name', 'name' => 'name', 'title' => 'Имя'],
                 ['data' => 'email', 'name' => 'email', 'title' => 'Email'],
                 ['data' => 'message', 'name' => 'message', 'title' => 'Сообщение'],
@@ -46,6 +46,11 @@ return [
     'mails' => [
         'to' => '',
         'subject' => '',
+    ],
+
+    'queue' => [
+        'enable' => false,
+        'name' => 'feedback_notify'
     ],
 
 ];

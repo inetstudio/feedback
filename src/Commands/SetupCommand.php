@@ -62,6 +62,21 @@ class SetupCommand extends Command
                     '--tag' => 'migrations',
                 ],
             ],
+            (! class_exists('CreateNotificationsTable')) ? [
+                'description' => 'Notifications migrations',
+                'command' => 'notifications:table',
+                'params' => [],
+            ] : [],
+            (! class_exists('CreateJobsTable')) ? [
+                'description' => 'Jobs migrations',
+                'command' => 'queue:table',
+                'params' => [],
+            ] : [],
+            (! class_exists('CreateFailedJobsTable')) ? [
+                'description' => 'Failed jobs migrations',
+                'command' => 'queue:failed-table',
+                'params' => [],
+            ] : [],
             [
                 'description' => 'Migration',
                 'command' => 'migrate',

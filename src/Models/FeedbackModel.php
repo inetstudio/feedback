@@ -5,10 +5,12 @@ namespace InetStudio\Feedback\Models;
 use App\User;
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class FeedbackModel extends Model
 {
+    use Notifiable;
     use Searchable;
     use SoftDeletes;
 

@@ -16,7 +16,7 @@ class FeedbackTransformer extends TransformerAbstract
     {
         return [
             'id' => (int) $feedback->id,
-            'status' => view('admin.module.feedback::partials.datatables.status', [
+            'read' => view('admin.module.feedback::partials.datatables.read', [
                 'is_read' => $feedback->is_read,
             ])->render(),
             'name' => $feedback->name,
