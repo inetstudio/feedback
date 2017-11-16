@@ -46,6 +46,9 @@ return [
     'mails' => [
         'to' => '',
         'subject' => '',
+        'headers' => [
+            'X-MC-Subaccount' => '',
+        ],
     ],
 
     'queue' => [

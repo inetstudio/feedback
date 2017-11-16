@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['namespace' => 'InetStudio\Feedback\Controllers'], function () {
+Route::group(['namespace' => 'InetStudio\Feedback\Http\Controllers\Back'], function () {
     Route::group(['middleware' => 'web', 'prefix' => 'back'], function () {
         Route::group(['middleware' => 'back.auth'], function () {
             Route::any('feedback/data', 'FeedbackController@data')->name('back.feedback.data');

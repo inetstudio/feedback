@@ -13,7 +13,7 @@ class FeedbackObserver
      *
      * @param FeedbackModel $feedback
      */
-    public function created(FeedbackModel $feedback)
+    public function created(FeedbackModel $feedback): void
     {
         if (config('feedback.mails.to')) {
             if (config('feedback.queue.enable')) {

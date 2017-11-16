@@ -1,6 +1,6 @@
 <?php
 
-namespace InetStudio\Feedback\Mail;
+namespace InetStudio\Feedback\Mails;
 
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -27,13 +27,21 @@ class NewFeedbackMail extends Mailable
      *
      * @return $this
      */
-    public function build()
+    public function build(): NewFeedbackMail
     {
         $subject = config('app.name').' | '.((config('feedback.mails.subject')) ? config('feedback.mails.subject') : 'Сообщение с формы обратной связи');
+        $headers = (config('feedback.mails.headers')) ? config('feedback.mails.headers') : [];
 
         return $this->from(config('mail.from.address'), config('mail.from.name'))
             ->to(config('feedback.mails.to'), '')
             ->subject($subject)
+            ->withSwiftMessage(function ($message) use ($headers) {
+                $messageHeaders = $message->getHeaders();
+
+                foreach ($headers as $header => $value) {
+                    $messageHeaders->addTextHeader($header, $value);
+                }
+            })
             ->view('admin.module.feedback::mails.feedback', ['feedback' => $this->feedback]);
     }
 }

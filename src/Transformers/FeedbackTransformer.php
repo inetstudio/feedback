@@ -9,10 +9,12 @@ use InetStudio\Feedback\Models\FeedbackModel;
 class FeedbackTransformer extends TransformerAbstract
 {
     /**
+     * Подготовка данных для отображения в таблице.
+     *
      * @param FeedbackModel $feedback
      * @return array
      */
-    public function transform(FeedbackModel $feedback)
+    public function transform(FeedbackModel $feedback): array
     {
         return [
             'id' => (int) $feedback->id,

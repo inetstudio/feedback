@@ -3,7 +3,7 @@
 namespace InetStudio\Feedback\Notifications;
 
 use Illuminate\Notifications\Notification;
-use InetStudio\Feedback\Mail\NewFeedbackMail;
+use InetStudio\Feedback\Mails\NewFeedbackMail;
 use InetStudio\Feedback\Models\FeedbackModel;
 
 class NewFeedbackNotification extends Notification
@@ -26,9 +26,11 @@ class NewFeedbackNotification extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
-        return ['mail', 'database'];
+        return [
+            'mail', 'database',
+        ];
     }
 
     /**
@@ -37,7 +39,7 @@ class NewFeedbackNotification extends Notification
      * @param $notifiable
      * @return NewFeedbackMail
      */
-    public function toMail($notifiable)
+    public function toMail($notifiable): NewFeedbackMail
     {
         return (new NewFeedbackMail($this->feedback));
     }
@@ -48,7 +50,7 @@ class NewFeedbackNotification extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toDatabase($notifiable)
+    public function toDatabase($notifiable): array
     {
         return [
             'feedback_id' => $this->feedback->id,
