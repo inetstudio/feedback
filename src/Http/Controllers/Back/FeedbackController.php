@@ -7,8 +7,8 @@ use Yajra\DataTables\DataTables;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use InetStudio\Feedback\Models\FeedbackModel;
-use InetStudio\AdminPanel\Traits\DatatablesTrait;
 use InetStudio\Feedback\Transformers\FeedbackTransformer;
+use InetStudio\AdminPanel\Http\Controllers\Back\Traits\DatatablesTrait;
 
 /**
  * Контроллер для управления сообщений.
