@@ -2,34 +2,46 @@
 
 namespace InetStudio\Feedback\Providers;
 
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use InetStudio\Feedback\Models\FeedbackModel;
 use InetStudio\Feedback\Observers\FeedbackObserver;
+use InetStudio\AdminPanel\Events\Auth\ActivatedEvent;
 use InetStudio\Feedback\Console\Commands\SetupCommand;
+use InetStudio\Feedback\Services\Front\FeedbackService;
+use InetStudio\Feedback\Listeners\AttachUserToFeedbackListener;
 
 class FeedbackServiceProvider extends ServiceProvider
 {
-    public function boot()
+    /**
+     * Загрузка сервиса.
+     *
+     * @return void
+     */
+    public function boot(): void
     {
         $this->registerConsoleCommands();
         $this->registerPublishes();
         $this->registerRoutes();
         $this->registerViews();
+        $this->registerTranslations();
+        $this->registerEvents();
         $this->registerObservers();
         $this->registerViewComposers();
     }
 
     /**
-     * Register the application services.
+     * Регистрация привязки в контейнере.
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
+        $this->registerBindings();
     }
 
     /**
-     * Register Feedback's console commands.
+     * Регистрация команд.
      *
      * @return void
      */
@@ -43,7 +55,7 @@ class FeedbackServiceProvider extends ServiceProvider
     }
 
     /**
-     * Setup the resource publishing groups for Feedback.
+     * Регистрация ресурсов.
      *
      * @return void
      */
@@ -68,7 +80,7 @@ class FeedbackServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register Feedback's routes.
+     * Регистрация путей.
      *
      * @return void
      */
@@ -78,7 +90,7 @@ class FeedbackServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register Feedback's views.
+     * Регистрация представлений.
      *
      * @return void
      */
@@ -88,7 +100,27 @@ class FeedbackServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register Feedback's observers.
+     * Регистрация переводов.
+     *
+     * @return void
+     */
+    protected function registerTranslations(): void
+    {
+        $this->loadTranslationsFrom(__DIR__.'/../../resources/lang', 'feedback');
+    }
+
+    /**
+     * Регистрация событий.
+     *
+     * @return void
+     */
+    protected function registerEvents(): void
+    {
+        Event::listen(ActivatedEvent::class, AttachUserToFeedbackListener::class);
+    }
+
+    /**
+     * Регистрация наблюдателей.
      *
      * @return void
      */
@@ -98,7 +130,7 @@ class FeedbackServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register Feedback's view composers.
+     * Регистрация привязок, алиасов и сторонних провайдеров сервисов.
      *
      * @return void
      */
@@ -107,5 +139,15 @@ class FeedbackServiceProvider extends ServiceProvider
         view()->composer('admin.module.feedback::includes.navigation', function($view) {
             $view->with('unreadBadge', FeedbackModel::unread()->count());
         });
+    }
+
+    /**
+     * Регистрация привязок, алиасов и сторонних провайдеров сервисов.
+     *
+     * @return void
+     */
+    public function registerBindings(): void
+    {
+        $this->app->bind('FeedbackService', FeedbackService::class);
     }
 }

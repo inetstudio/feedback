@@ -3,7 +3,7 @@
 namespace InetStudio\Feedback\Notifications;
 
 use Illuminate\Notifications\Notification;
-use InetStudio\Feedback\Mails\NewFeedbackMail;
+use InetStudio\Feedback\Mail\NewFeedbackMail;
 use InetStudio\Feedback\Models\FeedbackModel;
 
 class NewFeedbackNotification extends Notification

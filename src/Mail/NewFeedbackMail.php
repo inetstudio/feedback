@@ -1,6 +1,6 @@
 <?php
 
-namespace InetStudio\Feedback\Mails;
+namespace InetStudio\Feedback\Mail;
 
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
