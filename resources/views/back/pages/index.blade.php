@@ -19,7 +19,7 @@
 @section('content')
 
     @push('breadcrumbs')
-        @include('admin.module.feedback::partials.breadcrumbs')
+        @include('admin.module.feedback::back.partials.breadcrumbs')
     @endpush
 
     <div class="wrapper wrapper-content">

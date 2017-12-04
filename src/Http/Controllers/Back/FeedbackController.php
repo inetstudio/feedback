@@ -29,7 +29,7 @@ class FeedbackController extends Controller
     {
         $table = $this->generateTable($dataTable, 'feedback', 'index');
 
-        return view('admin.module.feedback::pages.index', compact('table'));
+        return view('admin.module.feedback::back.pages.index', compact('table'));
     }
 
     /**
@@ -60,7 +60,7 @@ class FeedbackController extends Controller
                 'is_read' => true,
             ]);
             
-            return view('admin.module.feedback::pages.form', [
+            return view('admin.module.feedback::back.pages.form', [
                 'item' => $item,
             ]);
         } else {

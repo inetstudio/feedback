@@ -18,14 +18,14 @@ class FeedbackTransformer extends TransformerAbstract
     {
         return [
             'id' => (int) $feedback->id,
-            'read' => view('admin.module.feedback::partials.datatables.read', [
+            'read' => view('admin.module.feedback::back.partials.datatables.read', [
                 'is_read' => $feedback->is_read,
             ])->render(),
             'name' => $feedback->name,
             'email' => $feedback->email,
             'message' => Str::limit($feedback->message, 100, '...'),
             'created_at' => (string) $feedback->created_at,
-            'actions' => view('admin.module.feedback::partials.datatables.actions', [
+            'actions' => view('admin.module.feedback::back.partials.datatables.actions', [
                 'id' => $feedback->id,
             ])->render(),
         ];

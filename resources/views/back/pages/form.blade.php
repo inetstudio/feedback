@@ -9,7 +9,7 @@
 @section('content')
 
     @push('breadcrumbs')
-        @include('admin.module.feedback::partials.breadcrumbs')
+        @include('admin.module.feedback::back.partials.breadcrumbs')
         <li>
             <a href="{{ route('back.feedback.index') }}">Обратная связь</a>
         </li>
