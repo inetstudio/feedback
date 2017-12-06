@@ -3,7 +3,6 @@
 namespace InetStudio\Feedback\Listeners;
 
 use InetStudio\Feedback\Models\FeedbackModel;
-use InetStudio\AdminPanel\Events\Auth\ActivatedEvent;
 
 class AttachUserToFeedbackListener
 {
@@ -18,10 +17,10 @@ class AttachUserToFeedbackListener
     /**
      * Handle the event.
      *
-     * @param ActivatedEvent $event
+     * @param $event
      * @return void
      */
-    public function handle(ActivatedEvent $event): void
+    public function handle($event): void
     {
         $user = $event->user;
 
