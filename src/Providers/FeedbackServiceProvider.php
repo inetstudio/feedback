@@ -9,6 +9,7 @@ use InetStudio\Feedback\Observers\FeedbackObserver;
 use InetStudio\AdminPanel\Events\Auth\ActivatedEvent;
 use InetStudio\Feedback\Console\Commands\SetupCommand;
 use InetStudio\Feedback\Services\Front\FeedbackService;
+use InetStudio\AdminPanel\Events\Auth\SocialRegisteredEvent;
 use InetStudio\Feedback\Listeners\AttachUserToFeedbackListener;
 
 class FeedbackServiceProvider extends ServiceProvider
@@ -117,6 +118,7 @@ class FeedbackServiceProvider extends ServiceProvider
     protected function registerEvents(): void
     {
         Event::listen(ActivatedEvent::class, AttachUserToFeedbackListener::class);
+        Event::listen(SocialRegisteredEvent::class, AttachUserToFeedbackListener::class);
     }
 
     /**
