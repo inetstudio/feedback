@@ -138,7 +138,7 @@ class FeedbackServiceProvider extends ServiceProvider
      */
     public function registerViewComposers(): void
     {
-        view()->composer('admin.module.feedback::back.includes.navigation', function($view) {
+        view()->composer('admin.module.feedback::back.includes.*', function($view) {
             $view->with('unreadBadge', FeedbackModel::unread()->count());
         });
     }
