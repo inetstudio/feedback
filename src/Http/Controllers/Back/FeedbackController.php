@@ -22,12 +22,11 @@ class FeedbackController extends Controller
     /**
      * Список сообщений.
      *
-     * @param DataTables $dataTable
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(DataTables $dataTable): View
+    public function index(): View
     {
-        $table = $this->generateTable($dataTable, 'feedback', 'index');
+        $table = $this->generateTable('feedback', 'index');
 
         return view('admin.module.feedback::back.pages.index', compact('table'));
     }
