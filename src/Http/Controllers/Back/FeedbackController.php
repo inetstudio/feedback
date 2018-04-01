@@ -45,7 +45,7 @@ class FeedbackController extends Controller
             ->rawColumns(['actions'])
             ->make();
     }
-    
+
     /**
      * Редактирование сообщения.
      *
@@ -58,7 +58,7 @@ class FeedbackController extends Controller
             $item->update([
                 'is_read' => true,
             ]);
-            
+
             return view('admin.module.feedback::back.pages.form', [
                 'item' => $item,
             ]);

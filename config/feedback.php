@@ -53,7 +53,7 @@ return [
 
     'queue' => [
         'enable' => false,
-        'name' => 'feedback_notify'
+        'name' => 'feedback_notify',
     ],
 
 ];

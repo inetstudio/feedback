@@ -27,7 +27,7 @@ class NewFeedbackMail extends Mailable
      *
      * @return $this
      */
-    public function build(): NewFeedbackMail
+    public function build(): self
     {
         $subject = config('app.name').' | '.((config('feedback.mails.subject')) ? config('feedback.mails.subject') : 'Сообщение с формы обратной связи');
         $headers = (config('feedback.mails.headers')) ? config('feedback.mails.headers') : [];

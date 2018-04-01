@@ -41,7 +41,7 @@ class NewFeedbackNotification extends Notification
      */
     public function toMail($notifiable): NewFeedbackMail
     {
-        return (new NewFeedbackMail($this->feedback));
+        return new NewFeedbackMail($this->feedback);
     }
 
     /**

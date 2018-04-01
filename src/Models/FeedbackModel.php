@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * InetStudio\Feedback\Models\FeedbackModel
+ * InetStudio\Feedback\Models\FeedbackModel.
  *
  * @property int $id
  * @property int $is_read
@@ -98,7 +98,7 @@ class FeedbackModel extends Model
     }
 
     /**
-     * Обратное отношение с моделью пользователя
+     * Обратное отношение с моделью пользователя.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
