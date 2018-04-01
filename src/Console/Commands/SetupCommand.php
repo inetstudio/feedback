@@ -100,15 +100,6 @@ class SetupCommand extends Command
                 'command' => 'migrate',
             ],
             [
-                'description' => 'Publish public',
-                'command' => 'vendor:publish',
-                'params' => [
-                    '--provider' => 'InetStudio\Feedback\Providers\FeedbackServiceProvider',
-                    '--tag' => 'public',
-                    '--force' => true,
-                ],
-            ],
-            [
                 'description' => 'Publish config',
                 'command' => 'vendor:publish',
                 'params' => [

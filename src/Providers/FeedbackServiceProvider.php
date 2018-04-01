@@ -63,10 +63,6 @@ class FeedbackServiceProvider extends ServiceProvider
     protected function registerPublishes(): void
     {
         $this->publishes([
-            __DIR__.'/../../public' => public_path(),
-        ], 'public');
-
-        $this->publishes([
             __DIR__.'/../../config/feedback.php' => config_path('feedback.php'),
         ], 'config');
 
