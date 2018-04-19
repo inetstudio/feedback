@@ -99,6 +99,7 @@ class SetupCommand extends Command
                 'command' => 'migrate',
             ],
             [
+                'type' => 'artisan',
                 'description' => 'Publish config',
                 'command' => 'vendor:publish',
                 'params' => [
