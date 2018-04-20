@@ -33,7 +33,7 @@ class NewFeedbackMail extends Mailable
         $headers = (config('feedback.mails.headers')) ? config('feedback.mails.headers') : [];
 
         return $this->from(config('mail.from.address'), config('mail.from.name'))
-            ->to(config('feedback.mails.to'), '')
+            ->to(explode(',', config('feedback.mails.to')))
             ->subject($subject)
             ->withSwiftMessage(function ($message) use ($headers) {
                 $messageHeaders = $message->getHeaders();
