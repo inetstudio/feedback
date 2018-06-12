@@ -2,11 +2,11 @@
 
 namespace InetStudio\Feedback\Models;
 
-use App\User;
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use InetStudio\ACL\Users\Models\Traits\HasUser;
 
 /**
  * InetStudio\Feedback\Models\FeedbackModel.
@@ -21,7 +21,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Carbon\Carbon|null $updated_at
  * @property \Carbon\Carbon|null $deleted_at
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
- * @property-read \App\User $user
  * @method static bool|null forceDelete()
  * @method static \Illuminate\Database\Query\Builder|\InetStudio\Feedback\Models\FeedbackModel onlyTrashed()
  * @method static bool|null restore()
@@ -41,6 +40,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class FeedbackModel extends Model
 {
+    use HasUser;
     use Notifiable;
     use Searchable;
     use SoftDeletes;
@@ -95,15 +95,5 @@ class FeedbackModel extends Model
     public function scopeUnread($query)
     {
         return $query->where('is_read', 0);
-    }
-
-    /**
-     * Обратное отношение с моделью пользователя.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id');
     }
 }
