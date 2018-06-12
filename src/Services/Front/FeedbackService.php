@@ -15,7 +15,7 @@ class FeedbackService
      */
     public function saveFeedback(SendFeedbackRequest $request): FeedbackModel
     {
-        $usersService = app()->make('UsersService');
+        $usersService = app()->make('InetStudio\ACL\Users\Contracts\Services\Front\UsersServiceContract');
 
         return FeedbackModel::create([
             'user_id' => $usersService->getUserId(),
