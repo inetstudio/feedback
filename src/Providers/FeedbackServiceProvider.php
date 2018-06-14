@@ -6,12 +6,13 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use InetStudio\Feedback\Models\FeedbackModel;
 use InetStudio\Feedback\Observers\FeedbackObserver;
-use InetStudio\AdminPanel\Events\Auth\ActivatedEvent;
 use InetStudio\Feedback\Console\Commands\SetupCommand;
 use InetStudio\Feedback\Services\Front\FeedbackService;
-use InetStudio\AdminPanel\Events\Auth\SocialRegisteredEvent;
 use InetStudio\Feedback\Listeners\AttachUserToFeedbackListener;
 
+/**
+ * Class FeedbackServiceProvider.
+ */
 class FeedbackServiceProvider extends ServiceProvider
 {
     /**
@@ -113,8 +114,8 @@ class FeedbackServiceProvider extends ServiceProvider
      */
     protected function registerEvents(): void
     {
-        Event::listen(ActivatedEvent::class, AttachUserToFeedbackListener::class);
-        Event::listen(SocialRegisteredEvent::class, AttachUserToFeedbackListener::class);
+        Event::listen(app()->make('InetStudio\ACL\Activations\Contracts\Events\Front\ActivatedEventContract'), AttachUserToFeedbackListener::class);
+        Event::listen(app()->make('InetStudio\ACL\Users\Contracts\Events\Front\SocialRegisteredEventContract'), AttachUserToFeedbackListener::class);
     }
 
     /**
