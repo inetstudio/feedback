@@ -114,8 +114,8 @@ class FeedbackServiceProvider extends ServiceProvider
      */
     protected function registerEvents(): void
     {
-        Event::listen(app()->make('InetStudio\ACL\Activations\Contracts\Events\Front\ActivatedEventContract'), AttachUserToFeedbackListener::class);
-        Event::listen(app()->make('InetStudio\ACL\Users\Contracts\Events\Front\SocialRegisteredEventContract'), AttachUserToFeedbackListener::class);
+        Event::listen('InetStudio\ACL\Activations\Contracts\Events\Front\ActivatedEventContract', AttachUserToFeedbackListener::class);
+        Event::listen('InetStudio\ACL\Users\Contracts\Events\Front\SocialRegisteredEventContract', AttachUserToFeedbackListener::class);
     }
 
     /**
