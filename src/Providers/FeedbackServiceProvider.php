@@ -28,7 +28,7 @@ class FeedbackServiceProvider extends ServiceProvider
         $this->registerViews();
         $this->registerTranslations();
         $this->registerEvents();
-        $this->registerObservers();
+        //$this->registerObservers();
         $this->registerViewComposers();
     }
 
