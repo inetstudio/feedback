@@ -28,7 +28,7 @@ class FeedbackServiceProvider extends ServiceProvider
         $this->registerViews();
         $this->registerTranslations();
         $this->registerEvents();
-        //$this->registerObservers();
+        $this->registerObservers();
         $this->registerViewComposers();
     }
 
@@ -84,6 +84,7 @@ class FeedbackServiceProvider extends ServiceProvider
      */
     protected function registerRoutes(): void
     {
+        $this->loadRoutesFrom(__DIR__.'/../../routes/api.php');
         $this->loadRoutesFrom(__DIR__.'/../../routes/web.php');
     }
 
