@@ -10,11 +10,12 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use InetStudio\Feedback\Models\FeedbackModel;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
+use InetStudio\Feedback\Contracts\Exports\FeedbackExportContract;
 
 /**
  * Class FeedbackExport.
  */
-class FeedbackExport implements FromQuery, WithMapping, WithHeadings, WithColumnFormatting
+class FeedbackExport implements FeedbackExportContract, FromQuery, WithMapping, WithHeadings, WithColumnFormatting
 {
     use Exportable;
 

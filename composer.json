@@ -21,6 +21,7 @@
     "extra": {
       "laravel": {
         "providers": [
+          "InetStudio\\Feedback\\Providers\\FeedbackBindingsServiceProvider",
           "InetStudio\\Feedback\\Providers\\FeedbackServiceProvider"
         ]
       }

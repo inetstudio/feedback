@@ -16,6 +16,9 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <a href="{{ route('back.feedback.export') }}" class="btn btn-sm btn-success pull-right">Экспорт</a>
+                    </div>
                     <div class="ibox-content">
                         <div class="table-responsive">
                             {{ $table->table(['class' => 'feedback-package table table-striped table-bordered table-hover dataTable']) }}

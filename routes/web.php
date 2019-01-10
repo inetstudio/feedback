@@ -1,5 +1,13 @@
 <?php
 
+Route::group([
+    'namespace' => 'InetStudio\Feedback\Contracts\Http\Controllers\Back',
+    'middleware' => ['web', 'back.auth'],
+    'prefix' => 'back/feedback',
+], function () {
+    Route::get('export', 'FeedbackExportControllerContract@exportFeedback')->name('back.feedback.export');
+});
+
 Route::group(['namespace' => 'InetStudio\Feedback\Http\Controllers\Back'], function () {
     Route::group(['middleware' => 'web', 'prefix' => 'back'], function () {
         Route::group(['middleware' => 'back.auth'], function () {
