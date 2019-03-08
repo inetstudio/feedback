@@ -7,7 +7,6 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithHeadings;
-use InetStudio\Feedback\Models\FeedbackModel;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use InetStudio\Feedback\Contracts\Exports\FeedbackExportContract;
@@ -24,22 +23,24 @@ class FeedbackExport implements FeedbackExportContract, FromQuery, WithMapping, 
      */
     public function query()
     {
-        return FeedbackModel::query();
+        $model = app()->make('InetStudio\Feedback\Contracts\Models\FeedbackModelContract');
+
+        return $model::query();
     }
 
     /**
-     * @param $feedback
+     * @param $item
      *
      * @return array
      */
-    public function map($feedback): array
+    public function map($item): array
     {
         return [
-            $feedback->id,
-            $feedback->name,
-            $feedback->email,
-            $feedback->message,
-            Date::dateTimeToExcel($feedback->created_at),
+            $item->id,
+            $item->name,
+            $item->email,
+            $item->message,
+            Date::dateTimeToExcel($item->created_at),
         ];
     }
 

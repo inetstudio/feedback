@@ -3,11 +3,8 @@
 namespace InetStudio\Feedback\Providers;
 
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
-use InetStudio\Feedback\Models\FeedbackModel;
-use InetStudio\Feedback\Observers\FeedbackObserver;
-use InetStudio\Feedback\Console\Commands\SetupCommand;
-use InetStudio\Feedback\Services\Front\FeedbackService;
 use InetStudio\Feedback\Listeners\AttachUserToFeedbackListener;
 
 /**
@@ -28,18 +25,6 @@ class FeedbackServiceProvider extends ServiceProvider
         $this->registerViews();
         $this->registerTranslations();
         $this->registerEvents();
-        $this->registerObservers();
-        $this->registerViewComposers();
-    }
-
-    /**
-     * Регистрация привязки в контейнере.
-     *
-     * @return void
-     */
-    public function register(): void
-    {
-        $this->registerBindings();
     }
 
     /**
@@ -51,7 +36,7 @@ class FeedbackServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
-                SetupCommand::class,
+                'InetStudio\Feedback\Console\Commands\SetupCommand',
             ]);
         }
     }
@@ -68,7 +53,7 @@ class FeedbackServiceProvider extends ServiceProvider
         ], 'config');
 
         if ($this->app->runningInConsole()) {
-            if (! class_exists('CreateFeedbackTables')) {
+            if (! Schema::hasTable('feedback')) {
                 $timestamp = date('Y_m_d_His', time());
                 $this->publishes([
                     __DIR__.'/../../database/migrations/create_feedback_tables.php.stub' => database_path('migrations/'.$timestamp.'_create_feedback_tables.php'),
@@ -116,37 +101,5 @@ class FeedbackServiceProvider extends ServiceProvider
     {
         Event::listen('InetStudio\ACL\Activations\Contracts\Events\Front\ActivatedEventContract', AttachUserToFeedbackListener::class);
         Event::listen('InetStudio\ACL\Users\Contracts\Events\Front\SocialRegisteredEventContract', AttachUserToFeedbackListener::class);
-    }
-
-    /**
-     * Регистрация наблюдателей.
-     *
-     * @return void
-     */
-    public function registerObservers(): void
-    {
-        FeedbackModel::observe(FeedbackObserver::class);
-    }
-
-    /**
-     * Регистрация привязок, алиасов и сторонних провайдеров сервисов.
-     *
-     * @return void
-     */
-    public function registerViewComposers(): void
-    {
-        view()->composer('admin.module.feedback::back.includes.*', function ($view) {
-            $view->with('unreadBadge', FeedbackModel::unread()->count());
-        });
-    }
-
-    /**
-     * Регистрация привязок, алиасов и сторонних провайдеров сервисов.
-     *
-     * @return void
-     */
-    public function registerBindings(): void
-    {
-        $this->app->bind('FeedbackService', FeedbackService::class);
     }
 }

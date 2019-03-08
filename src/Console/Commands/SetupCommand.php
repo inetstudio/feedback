@@ -2,13 +2,12 @@
 
 namespace InetStudio\Feedback\Console\Commands;
 
-use Illuminate\Console\Command;
-use Symfony\Component\Process\Process;
+use InetStudio\AdminPanel\Console\Commands\BaseSetupCommand;
 
 /**
  * Class SetupCommand.
  */
-class SetupCommand extends Command
+class SetupCommand extends BaseSetupCommand
 {
     /**
      * Имя команды.
@@ -25,48 +24,11 @@ class SetupCommand extends Command
     protected $description = 'Setup feedback package';
 
     /**
-     * Список дополнительных команд.
-     *
-     * @var array
-     */
-    protected $calls = [];
-
-    /**
-     * Запуск команды.
-     *
-     * @return void
-     */
-    public function handle(): void
-    {
-        $this->initCommands();
-
-        foreach ($this->calls as $info) {
-            if (! isset($info['command'])) {
-                continue;
-            }
-
-            $params = (isset($info['params'])) ? $info['params'] : [];
-
-            $this->line(PHP_EOL.$info['description']);
-
-            switch ($info['type']) {
-                case 'artisan':
-                    $this->call($info['command'], $params);
-                    break;
-                case 'cli':
-                    $process = new Process($info['command']);
-                    $process->run();
-                    break;
-            }
-        }
-    }
-
-    /**
      * Инициализация команд.
      *
      * @return void
      */
-    private function initCommands(): void
+    protected function initCommands(): void
     {
         $this->calls = [
             [
@@ -106,11 +68,6 @@ class SetupCommand extends Command
                     '--provider' => 'InetStudio\Feedback\Providers\FeedbackServiceProvider',
                     '--tag' => 'config',
                 ],
-            ],
-            [
-                'type' => 'cli',
-                'description' => 'Composer dump',
-                'command' => 'composer dump-autoload',
             ],
         ];
     }

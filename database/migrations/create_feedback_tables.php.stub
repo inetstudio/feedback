@@ -3,8 +3,16 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * Class CreateFeedbackTables.
+ */
 class CreateFeedbackTables extends Migration
 {
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
     public function up()
     {
         Schema::create('feedback', function (Blueprint $table) {
@@ -19,6 +27,11 @@ class CreateFeedbackTables extends Migration
         });
     }
 
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
     public function down()
     {
         Schema::drop('feedback');

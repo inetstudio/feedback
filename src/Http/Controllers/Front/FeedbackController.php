@@ -2,29 +2,32 @@
 
 namespace InetStudio\Feedback\Http\Controllers\Front;
 
-use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
-use InetStudio\Feedback\Http\Requests\Front\SendFeedbackRequest;
+use InetStudio\Feedback\Contracts\Services\Front\FeedbackServiceContract;
+use InetStudio\Feedback\Contracts\Http\Requests\Front\SendFeedbackRequestContract;
+use InetStudio\Feedback\Contracts\Http\Responses\Front\SendFeedbackResponseContract;
 
+/**
+ * Class FeedbackController.
+ */
 class FeedbackController extends Controller
 {
     /**
      * Отправляем сообщение с формы обратной связи.
      *
-     * @param SendFeedbackRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @param FeedbackServiceContract $feedbackService
+     * @param SendFeedbackRequestContract $request
+     *
+     * @return SendFeedbackResponseContract
      */
-    public function sendFeedback(SendFeedbackRequest $request): JsonResponse
+    public function sendFeedback(FeedbackServiceContract $feedbackService, SendFeedbackRequestContract $request): SendFeedbackResponseContract
     {
-        $feedbackService = app()->make('FeedbackService');
+        $data = $request->only($feedbackService->model->getFillable());
 
-        $feedback = $feedbackService->saveFeedback($request);
+        $item = $feedbackService->sendFeedback($data);
 
-        $result = ($feedback && isset($feedback->id));
+        $result = ($item && isset($item->id));
 
-        return response()->json([
-            'success' => $result,
-            'message' => ($result) ? trans('feedback::messages.send_success') : trans('feedback::messages.send_fail'),
-        ]);
+        return app()->makeWith(SendFeedbackResponseContract::class, compact('result'));
     }
 }

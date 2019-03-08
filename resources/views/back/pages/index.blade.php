@@ -9,19 +9,25 @@
 @section('content')
 
     @push('breadcrumbs')
-        @include('admin.module.feedback::back.partials.breadcrumbs')
+        @include('admin.module.feedback::back.partials.breadcrumbs.form')
     @endpush
 
-    <div class="wrapper wrapper-content">
+    <div class="wrapper wrapper-content feedback-package" id="feedback_table">
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <a href="{{ route('back.feedback.export') }}" class="btn btn-sm btn-success pull-right">Экспорт</a>
+                        <a href="#" data-url="{{ route('back.feedback.moderate.read') }}" class="btn btn-xs btn-default group-action">Отметить как прочитанное</a>
+                        <a href="#" data-url="{{ route('back.feedback.moderate.destroy') }}" class="btn btn-xs btn-danger group-action">Удалить</a>
+                        <a href="{{ route('back.feedback.export') }}" class="btn btn-xs btn-success pull-right">Экспорт</a>
                     </div>
                     <div class="ibox-content">
+                        <div class="sk-spinner sk-spinner-double-bounce">
+                            <div class="sk-double-bounce1"></div>
+                            <div class="sk-double-bounce2"></div>
+                        </div>
                         <div class="table-responsive">
-                            {{ $table->table(['class' => 'feedback-package table table-striped table-bordered table-hover dataTable']) }}
+                            {{ $table->table(['class' => 'table table-striped table-bordered table-hover dataTable']) }}
                         </div>
                     </div>
                 </div>

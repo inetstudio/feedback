@@ -4,22 +4,29 @@ namespace InetStudio\Feedback\Mail;
 
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use InetStudio\Feedback\Models\FeedbackModel;
+use InetStudio\Feedback\Contracts\Mail\NewFeedbackMailContract;
+use InetStudio\Feedback\Contracts\Models\FeedbackModelContract;
 
-class NewFeedbackMail extends Mailable
+/**
+ * Class NewFeedbackMail.
+ */
+class NewFeedbackMail extends Mailable implements NewFeedbackMailContract
 {
     use SerializesModels;
 
-    protected $feedback;
+    /**
+     * @var FeedbackModelContract
+     */
+    protected $item;
 
     /**
      * NewFeedbackMail constructor.
      *
-     * @param FeedbackModel $feedback
+     * @param FeedbackModelContract $item
      */
-    public function __construct(FeedbackModel $feedback)
+    public function __construct(FeedbackModelContract $item)
     {
-        $this->feedback = $feedback;
+        $this->item = $item;
     }
 
     /**
@@ -29,11 +36,13 @@ class NewFeedbackMail extends Mailable
      */
     public function build(): self
     {
-        $subject = config('app.name').' | '.((config('feedback.mails.subject')) ? config('feedback.mails.subject') : 'Сообщение с формы обратной связи');
-        $headers = (config('feedback.mails.headers')) ? config('feedback.mails.headers') : [];
+        $subject = config('app.name').' | '.config('feedback.mails_admins.subject', 'Сообщение с формы обратной связи');
+        $headers = config('feedback.mails_admins.headers', []);
+
+        $to = config('feedback.mails_admins.to');
 
         return $this->from(config('mail.from.address'), config('mail.from.name'))
-            ->to(explode(',', config('feedback.mails.to')))
+            ->to($to)
             ->subject($subject)
             ->withSwiftMessage(function ($message) use ($headers) {
                 $messageHeaders = $message->getHeaders();
@@ -42,6 +51,6 @@ class NewFeedbackMail extends Mailable
                     $messageHeaders->addTextHeader($header, $value);
                 }
             })
-            ->view('admin.module.feedback::mails.feedback', ['feedback' => $this->feedback]);
+            ->view('admin.module.feedback::mails.feedback_admins', ['item' => $this->item]);
     }
 }

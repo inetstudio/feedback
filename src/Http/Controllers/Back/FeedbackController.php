@@ -2,89 +2,149 @@
 
 namespace InetStudio\Feedback\Http\Controllers\Back;
 
-use Illuminate\View\View;
-use Yajra\DataTables\DataTables;
-use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
-use InetStudio\Feedback\Models\FeedbackModel;
-use InetStudio\Feedback\Transformers\FeedbackTransformer;
-use InetStudio\AdminPanel\Http\Controllers\Back\Traits\DatatablesTrait;
+use InetStudio\Feedback\Contracts\Services\Back\FeedbackServiceContract;
+use InetStudio\Feedback\Contracts\Http\Requests\Back\SaveFeedbackRequestContract;
+use InetStudio\Feedback\Contracts\Services\Back\FeedbackDataTableServiceContract;
+use InetStudio\Feedback\Contracts\Http\Controllers\Back\FeedbackControllerContract;
+use InetStudio\Feedback\Contracts\Http\Responses\Back\Resource\FormResponseContract;
+use InetStudio\Feedback\Contracts\Http\Responses\Back\Resource\SaveResponseContract;
+use InetStudio\Feedback\Contracts\Http\Responses\Back\Resource\ShowResponseContract;
+use InetStudio\Feedback\Contracts\Http\Responses\Back\Resource\IndexResponseContract;
+use InetStudio\Feedback\Contracts\Http\Responses\Back\Resource\DestroyResponseContract;
 
 /**
- * Контроллер для управления сообщений.
- *
- * Class ContestByTagStatusesController
+ * Class FeedbackController.
  */
-class FeedbackController extends Controller
+class FeedbackController extends Controller implements FeedbackControllerContract
 {
-    use DatatablesTrait;
-
     /**
-     * Список сообщений.
+     * Список объектов.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param FeedbackDataTableServiceContract $datatablesService
+     *
+     * @return IndexResponseContract
      */
-    public function index(): View
+    public function index(FeedbackDataTableServiceContract $datatablesService): IndexResponseContract
     {
-        $table = $this->generateTable('feedback', 'index');
+        $table = $datatablesService->html();
 
-        return view('admin.module.feedback::back.pages.index', compact('table'));
+        return app()->makeWith(IndexResponseContract::class, [
+            'data' => compact('table'),
+        ]);
     }
 
     /**
-     * DataTables ServerSide.
+     * Получение объекта.
      *
-     * @return mixed
+     * @param FeedbackServiceContract $feedbackService
+     * @param int $id
+     *
+     * @return ShowResponseContract
      */
-    public function data()
+    public function show(FeedbackServiceContract $feedbackService, int $id = 0): ShowResponseContract
     {
-        $items = FeedbackModel::query();
+        $item = $feedbackService->getItemById($id);
 
-        return DataTables::of($items)
-            ->setTransformer(new FeedbackTransformer)
-            ->rawColumns(['actions'])
-            ->make();
+        return app()->makeWith(ShowResponseContract::class, [
+            'item' => $item,
+        ]);
     }
 
     /**
-     * Редактирование сообщения.
+     * Создание объекта.
      *
-     * @param null $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param FeedbackServiceContract $feedbackService
+     *
+     * @return FormResponseContract
      */
-    public function edit($id = null): View
+    public function create(FeedbackServiceContract $feedbackService): FormResponseContract
     {
-        if (! is_null($id) && $id > 0 && $item = FeedbackModel::find($id)) {
-            $item->update([
-                'is_read' => true,
-            ]);
+        $item = $feedbackService->getItemById();
 
-            return view('admin.module.feedback::back.pages.form', [
-                'item' => $item,
-            ]);
-        } else {
-            abort(404);
-        }
+        return app()->makeWith(FormResponseContract::class, [
+            'data' => compact('item'),
+        ]);
     }
 
     /**
-     * Удаление сообщения.
+     * Создание объекта.
      *
-     * @param null $id
-     * @return \Illuminate\Http\JsonResponse
+     * @param FeedbackServiceContract $feedbackService
+     * @param SaveFeedbackRequestContract $request
+     *
+     * @return SaveResponseContract
      */
-    public function destroy($id = null): JsonResponse
+    public function store(FeedbackServiceContract $feedbackService, SaveFeedbackRequestContract $request): SaveResponseContract
     {
-        if (! is_null($id) && $id > 0 && $item = FeedbackModel::find($id)) {
-            $item->delete();
+        return $this->save($feedbackService, $request);
+    }
 
-            return response()->json([
-                'success' => true,
-            ]);
-        } else {
-            return response()->json([
-                'success' => false,
-            ]);
-        }
+    /**
+     * Редактирование объекта.
+     *
+     * @param FeedbackServiceContract $feedbackService
+     * @param int $id
+     *
+     * @return FormResponseContract
+     */
+    public function edit(FeedbackServiceContract $feedbackService, int $id = 0): FormResponseContract
+    {
+        $item = $feedbackService->getItemByIdForDisplay($id);
+
+        return app()->makeWith(FormResponseContract::class, [
+            'data' => compact('item'),
+        ]);
+    }
+
+    /**
+     * Обновление объекта.
+     *
+     * @param FeedbackServiceContract $feedbackService
+     * @param SaveFeedbackRequestContract $request
+     * @param int $id
+     *
+     * @return SaveResponseContract
+     */
+    public function update(FeedbackServiceContract $feedbackService, SaveFeedbackRequestContract $request, int $id = 0): SaveResponseContract
+    {
+        return $this->save($feedbackService, $request, $id);
+    }
+
+    /**
+     * Сохранение объекта.
+     *
+     * @param FeedbackServiceContract $feedbackService
+     * @param SaveFeedbackRequestContract $request
+     * @param int $id
+     *
+     * @return SaveResponseContract
+     */
+    protected function save(FeedbackServiceContract $feedbackService, SaveFeedbackRequestContract $request, int $id = 0): SaveResponseContract
+    {
+        $data = $request->only($feedbackService->model->getFillable());
+
+        $item = $feedbackService->save($data, $id);
+
+        return app()->makeWith(SaveResponseContract::class, [
+            'item' => $item,
+        ]);
+    }
+
+    /**
+     * Удаление объекта.
+     *
+     * @param FeedbackServiceContract $feedbackService
+     * @param int $id
+     *
+     * @return DestroyResponseContract
+     */
+    public function destroy(FeedbackServiceContract $feedbackService, int $id = 0): DestroyResponseContract
+    {
+        $result = $feedbackService->destroy($id);
+
+        return app()->makeWith(DestroyResponseContract::class, [
+            'result' => (!! $result),
+        ]);
     }
 }

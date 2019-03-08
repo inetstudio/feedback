@@ -7,43 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use InetStudio\ACL\Users\Models\Traits\HasUser;
+use InetStudio\Feedback\Contracts\Models\FeedbackModelContract;
+use InetStudio\AdminPanel\Base\Models\Traits\Scopes\BuildQueryScopeTrait;
 
 /**
- * InetStudio\Feedback\Models\FeedbackModel.
- *
- * @property int $id
- * @property int $is_read
- * @property string $user_id
- * @property string $name
- * @property string $email
- * @property string|null $message
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
- * @property \Carbon\Carbon|null $deleted_at
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
- * @method static bool|null forceDelete()
- * @method static \Illuminate\Database\Query\Builder|\InetStudio\Feedback\Models\FeedbackModel onlyTrashed()
- * @method static bool|null restore()
- * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Feedback\Models\FeedbackModel unread()
- * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Feedback\Models\FeedbackModel whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Feedback\Models\FeedbackModel whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Feedback\Models\FeedbackModel whereEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Feedback\Models\FeedbackModel whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Feedback\Models\FeedbackModel whereIsRead($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Feedback\Models\FeedbackModel whereMessage($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Feedback\Models\FeedbackModel whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Feedback\Models\FeedbackModel whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Feedback\Models\FeedbackModel whereUserId($value)
- * @method static \Illuminate\Database\Query\Builder|\InetStudio\Feedback\Models\FeedbackModel withTrashed()
- * @method static \Illuminate\Database\Query\Builder|\InetStudio\Feedback\Models\FeedbackModel withoutTrashed()
- * @mixin \Eloquent
+ * Class FeedbackModel.
  */
-class FeedbackModel extends Model
+class FeedbackModel extends Model implements FeedbackModelContract
 {
     use HasUser;
     use Notifiable;
     use Searchable;
     use SoftDeletes;
+    use BuildQueryScopeTrait;
 
     /**
      * Связанная с моделью таблица.
@@ -73,6 +49,20 @@ class FeedbackModel extends Model
     ];
 
     /**
+     * Загрузка модели.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        self::$buildQueryScopeDefaults['columns'] = [
+            'id', 'is_read', 'user_id', 'name', 'email', 'message',
+        ];
+    }
+
+    /**
      * Настройка полей для поиска.
      *
      * @return array
@@ -90,6 +80,7 @@ class FeedbackModel extends Model
      * Заготовка запроса "Непрочитанные сообщения".
      *
      * @param $query
+     *
      * @return mixed
      */
     public function scopeUnread($query)

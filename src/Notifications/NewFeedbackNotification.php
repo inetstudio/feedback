@@ -3,27 +3,32 @@
 namespace InetStudio\Feedback\Notifications;
 
 use Illuminate\Notifications\Notification;
-use InetStudio\Feedback\Mail\NewFeedbackMail;
-use InetStudio\Feedback\Models\FeedbackModel;
+use InetStudio\Feedback\Contracts\Mail\NewFeedbackMailContract;
+use InetStudio\Feedback\Contracts\Models\FeedbackModelContract;
+use InetStudio\Feedback\Contracts\Notifications\NewFeedbackNotificationContract;
 
-class NewFeedbackNotification extends Notification
+/**
+ * Class NewFeedbackNotification.
+ */
+class NewFeedbackNotification extends Notification implements NewFeedbackNotificationContract
 {
-    protected $feedback;
+    protected $item;
 
     /**
      * NewFeedbackNotification constructor.
      *
-     * @param FeedbackModel $feedback
+     * @param FeedbackModelContract $item
      */
-    public function __construct(FeedbackModel $feedback)
+    public function __construct(FeedbackModelContract $item)
     {
-        $this->feedback = $feedback;
+        $this->item = $item;
     }
 
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
+     *
      * @return array
      */
     public function via($notifiable): array
@@ -37,23 +42,25 @@ class NewFeedbackNotification extends Notification
      * Get the mail representation of the notification.
      *
      * @param $notifiable
-     * @return NewFeedbackMail
+     *
+     * @return NewFeedbackMailContract
      */
-    public function toMail($notifiable): NewFeedbackMail
+    public function toMail($notifiable): NewFeedbackMailContract
     {
-        return new NewFeedbackMail($this->feedback);
+        return app()->makeWith(NewFeedbackMailContract::class, ['item' => $this->item]);
     }
 
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
+     *
      * @return array
      */
     public function toDatabase($notifiable): array
     {
         return [
-            'feedback_id' => $this->feedback->id,
+            'feedback_id' => $this->item->id,
         ];
     }
 }

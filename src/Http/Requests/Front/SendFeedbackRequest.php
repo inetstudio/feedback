@@ -4,8 +4,12 @@ namespace InetStudio\Feedback\Http\Requests\Front;
 
 use Arcanedev\NoCaptcha\Rules\CaptchaRule;
 use Illuminate\Foundation\Http\FormRequest;
+use InetStudio\Feedback\Contracts\Http\Requests\Front\SendFeedbackRequestContract;
 
-class SendFeedbackRequest extends FormRequest
+/**
+ * Class SendFeedbackRequest.
+ */
+class SendFeedbackRequest extends FormRequest implements SendFeedbackRequestContract
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -50,7 +54,7 @@ class SendFeedbackRequest extends FormRequest
             'message' => 'required',
         ];
 
-        if (! \Auth::user()) {
+        if (! auth()->user()) {
             $rules = array_merge($rules, [
                 'name' => 'required|max:255',
                 'email' => 'required|max:255|email',

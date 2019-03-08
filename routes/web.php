@@ -3,24 +3,22 @@
 Route::group([
     'namespace' => 'InetStudio\Feedback\Contracts\Http\Controllers\Back',
     'middleware' => ['web', 'back.auth'],
-    'prefix' => 'back/feedback',
+    'prefix' => 'back',
 ], function () {
-    Route::get('export', 'FeedbackExportControllerContract@exportFeedback')->name('back.feedback.export');
+    Route::get('feedback/export', 'FeedbackExportControllerContract@exportFeedback')->name('back.feedback.export');
+    Route::any('feedback/data', 'FeedbackDataControllerContract@data')->name('back.feedback.data.index');
+
+    Route::post('feedback/moderate/read', 'FeedbackModerateControllerContract@read')->name('back.feedback.moderate.read');
+    Route::post('feedback/moderate/destroy', 'FeedbackModerateControllerContract@destroy')->name('back.feedback.moderate.destroy');
+    
+    Route::resource('feedback', 'FeedbackControllerContract', [
+        'as' => 'back',
+    ]);
 });
 
-Route::group(['namespace' => 'InetStudio\Feedback\Http\Controllers\Back'], function () {
-    Route::group(['middleware' => 'web', 'prefix' => 'back'], function () {
-        Route::group(['middleware' => 'back.auth'], function () {
-            Route::any('feedback/data', 'FeedbackController@data')->name('back.feedback.data');
-            Route::resource('feedback', 'FeedbackController', ['only' => [
-                'index', 'edit', 'destroy',
-            ], 'as' => 'back']);
-        });
-    });
-});
-
-Route::group(['namespace' => 'InetStudio\Feedback\Http\Controllers\Front'], function () {
-    Route::group(['middleware' => 'web'], function () {
-        Route::post('feedback/send', 'FeedbackController@sendFeedback')->name('front.feedback.send');
-    });
+Route::group([
+    'namespace' => 'InetStudio\Feedback\Contracts\Http\Controllers\Front',
+    'middleware' => ['web'],
+], function () {
+    Route::post('feedback/send', 'FeedbackControllerContract@sendFeedback')->name('front.feedback.send');
 });
