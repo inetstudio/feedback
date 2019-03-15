@@ -2,16 +2,25 @@
 
 namespace InetStudio\Feedback\Services\Front;
 
+use InetStudio\AdminPanel\Base\Services\Front\BaseService;
 use InetStudio\Feedback\Contracts\Models\FeedbackModelContract;
 use InetStudio\Feedback\Contracts\Services\Front\FeedbackServiceContract;
 
 /**
  * Class FeedbackService.
  */
-class FeedbackService implements FeedbackServiceContract
+class FeedbackService extends BaseService implements FeedbackServiceContract
 {
     /**
-     * Сохраняем отзыв.
+     * FeedbackService constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct(app()->make('InetStudio\Feedback\Contracts\Models\FeedbackModelContract'));
+    }
+
+    /**
+     * Сохраняем сообщение.
      *
      * @param array $data
      *
