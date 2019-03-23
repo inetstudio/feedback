@@ -2,6 +2,7 @@
 
 namespace InetStudio\Feedback\Models;
 
+use Illuminate\Support\Arr;
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -69,7 +70,7 @@ class FeedbackModel extends Model implements FeedbackModelContract
      */
     public function toSearchableArray()
     {
-        $arr = array_only($this->toArray(), [
+        $arr = Arr::only($this->toArray(), [
             'id', 'user_id', 'name', 'email', 'message',
         ]);
 

@@ -3,17 +3,13 @@
 namespace InetStudio\Feedback\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Support\DeferrableProvider;
 
 /**
  * Class FeedbackBindingsServiceProvider.
  */
-class FeedbackBindingsServiceProvider extends ServiceProvider
+class FeedbackBindingsServiceProvider extends ServiceProvider implements DeferrableProvider
 {
-    /**
-    * @var  bool
-    */
-    protected $defer = true;
-
     /**
     * @var  array
     */
