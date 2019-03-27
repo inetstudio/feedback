@@ -19,7 +19,9 @@
                     <div class="ibox-title">
                         <a href="#" data-url="{{ route('back.feedback.moderate.read') }}" class="btn btn-xs btn-default group-action">Отметить как прочитанное</a>
                         <a href="#" data-url="{{ route('back.feedback.moderate.destroy') }}" class="btn btn-xs btn-danger group-action">Удалить</a>
-                        <a href="{{ route('back.feedback.export') }}" class="btn btn-xs btn-success pull-right">Экспорт</a>
+                        <div class="ibox-tools">
+                            <a href="{{ route('back.feedback.export') }}" class="btn btn-xs btn-primary">Экспорт</a>
+                        </div>
                     </div>
                     <div class="ibox-content">
                         <div class="sk-spinner sk-spinner-double-bounce">
