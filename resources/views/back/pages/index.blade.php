@@ -9,7 +9,7 @@
 @section('content')
 
     @push('breadcrumbs')
-        @include('admin.module.feedback::back.partials.breadcrumbs.form')
+        @include('admin.module.feedback::back.partials.breadcrumbs.index')
     @endpush
 
     <div class="wrapper wrapper-content feedback-package" id="feedback_table">
