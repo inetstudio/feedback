@@ -55,7 +55,6 @@
                                                     'title' => 'Имя',
                                                 ],
                                                 'field' => [
-                                                    'class' => 'form-control',
                                                     'disabled' => true,
                                                 ],
                                             ]) !!}
@@ -65,7 +64,6 @@
                                                     'title' => 'Email',
                                                 ],
                                                 'field' => [
-                                                    'class' => 'form-control',
                                                     'disabled' => true,
                                                 ],
                                             ]) !!}
@@ -75,7 +73,6 @@
                                                     'title' => 'Сообщение',
                                                 ],
                                                 'field' => [
-                                                    'class' => 'form-control',
                                                     'id' => 'message',
                                                     'disabled' => true,
                                                 ],
