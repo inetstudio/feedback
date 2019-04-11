@@ -2,7 +2,7 @@
 
 namespace InetStudio\Feedback\Services\Front;
 
-use InetStudio\AdminPanel\Base\Services\Front\BaseService;
+use InetStudio\AdminPanel\Base\Services\BaseService;
 use InetStudio\Feedback\Contracts\Models\FeedbackModelContract;
 use InetStudio\Feedback\Contracts\Services\Front\FeedbackServiceContract;
 

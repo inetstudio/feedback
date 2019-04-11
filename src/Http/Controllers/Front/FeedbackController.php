@@ -50,7 +50,7 @@ class FeedbackController extends Controller
             'g-recaptcha-response.captcha'  => 'Неверный код капча',
         ])->validate();
 
-        $data = $request->only($feedbackService->model->getFillable());
+        $data = $request->only($feedbackService->getModel()->getFillable());
 
         $item = $feedbackService->sendFeedback($data);
 

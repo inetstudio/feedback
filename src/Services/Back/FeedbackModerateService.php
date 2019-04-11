@@ -2,7 +2,7 @@
 
 namespace InetStudio\Feedback\Services\Back;
 
-use InetStudio\AdminPanel\Base\Services\Back\BaseService;
+use InetStudio\AdminPanel\Base\Services\BaseService;
 use InetStudio\Feedback\Contracts\Services\Back\FeedbackModerateServiceContract;
 
 /**

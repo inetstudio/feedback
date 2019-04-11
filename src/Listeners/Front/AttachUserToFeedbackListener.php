@@ -20,7 +20,7 @@ class AttachUserToFeedbackListener
 
         $user = $event->user;
 
-        $feedbackService->model::where([
+        $feedbackService->getModel()::where([
             ['user_id', '=', 0],
             ['email', '=', $user->email],
         ])->update([

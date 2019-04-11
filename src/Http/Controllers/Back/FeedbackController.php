@@ -122,7 +122,7 @@ class FeedbackController extends Controller implements FeedbackControllerContrac
      */
     protected function save(FeedbackServiceContract $feedbackService, SaveFeedbackRequestContract $request, int $id = 0): SaveResponseContract
     {
-        $data = $request->only($feedbackService->model->getFillable());
+        $data = $request->only($feedbackService->getModel()->getFillable());
 
         $item = $feedbackService->save($data, $id);
 

@@ -3,7 +3,7 @@
 namespace InetStudio\Feedback\Services\Back;
 
 use Illuminate\Support\Facades\Session;
-use InetStudio\AdminPanel\Base\Services\Back\BaseService;
+use InetStudio\AdminPanel\Base\Services\BaseService;
 use InetStudio\Feedback\Contracts\Models\FeedbackModelContract;
 use InetStudio\Feedback\Contracts\Services\Back\FeedbackServiceContract;
 
