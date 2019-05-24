@@ -36,6 +36,7 @@ class FeedbackBindingsServiceProvider extends ServiceProvider implements Deferra
         'InetStudio\Feedback\Contracts\Events\Front\SendFeedbackEventContract' => 'InetStudio\Feedback\Events\Front\SendFeedbackEvent',
         'InetStudio\Feedback\Contracts\Listeners\Front\SendEmailToAdminListenerContract' => 'InetStudio\Feedback\Listeners\Front\SendEmailToAdminListener',
         'InetStudio\Feedback\Contracts\Listeners\Front\AttachUserToFeedbackListenerContract' => 'InetStudio\Feedback\Listeners\Front\AttachUserToFeedbackListener',
+        'InetStudio\Feedback\Contracts\Mail\NewFeedbackMailContract' => 'InetStudio\Feedback\Mail\NewFeedbackMail',
         'InetStudio\Feedback\Contracts\Notifications\NewFeedbackNotificationContract' => 'InetStudio\Feedback\Notifications\NewFeedbackNotification',
         'InetStudio\Feedback\Contracts\Notifications\NewFeedbackQueueableNotificationContract' => 'InetStudio\Feedback\Notifications\NewFeedbackQueueableNotification',
         'InetStudio\Feedback\Contracts\Services\Back\FeedbackDataTableServiceContract' => 'InetStudio\Feedback\Services\Back\FeedbackDataTableService',
