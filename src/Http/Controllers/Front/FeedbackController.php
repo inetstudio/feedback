@@ -3,7 +3,7 @@
 namespace InetStudio\Feedback\Http\Controllers\Front;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Arcanedev\NoCaptcha\Rules\CaptchaRule;
 use InetStudio\Feedback\Contracts\Services\Front\FeedbackServiceContract;

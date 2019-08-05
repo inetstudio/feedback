@@ -39,7 +39,7 @@ class SendFeedbackRequest extends FormRequest implements SendFeedbackRequestCont
             'email.email' => 'Поле «Email» должно содержать значение в корректном формате',
 
             'g-recaptcha-response.required' => 'Поле «Капча» обязательно для заполнения',
-            'g-recaptcha-response.captcha'  => 'Неверный код капча',
+            'g-recaptcha-response.captcha' => 'Неверный код капча',
         ];
     }
 

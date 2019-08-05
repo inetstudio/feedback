@@ -3,7 +3,7 @@
 namespace InetStudio\Feedback\Http\Controllers\Back;
 
 use Maatwebsite\Excel\Facades\Excel;
-use App\Http\Controllers\Controller;
+use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
 use InetStudio\Feedback\Contracts\Http\Controllers\Back\FeedbackExportControllerContract;
 
 /**

@@ -3,7 +3,7 @@
 namespace InetStudio\Feedback\Http\Controllers\Back;
 
 use Illuminate\Http\JsonResponse;
-use App\Http\Controllers\Controller;
+use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
 use InetStudio\Feedback\Contracts\Services\Back\FeedbackDataTableServiceContract;
 use InetStudio\Feedback\Contracts\Http\Controllers\Back\FeedbackDataControllerContract;
 

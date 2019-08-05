@@ -3,7 +3,7 @@
 namespace InetStudio\Feedback\Http\Controllers\Back;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
 use InetStudio\Feedback\Contracts\Services\Back\FeedbackModerateServiceContract;
 use InetStudio\Feedback\Contracts\Http\Responses\Back\Moderate\ReadResponseContract;
 use InetStudio\Feedback\Contracts\Http\Responses\Back\Moderate\DestroyResponseContract;

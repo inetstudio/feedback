@@ -2,7 +2,7 @@
 
 namespace InetStudio\Feedback\Http\Controllers\Back;
 
-use App\Http\Controllers\Controller;
+use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
 use InetStudio\Feedback\Contracts\Services\Back\FeedbackServiceContract;
 use InetStudio\Feedback\Contracts\Http\Requests\Back\SaveFeedbackRequestContract;
 use InetStudio\Feedback\Contracts\Services\Back\FeedbackDataTableServiceContract;
