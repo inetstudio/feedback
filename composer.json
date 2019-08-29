@@ -11,18 +11,21 @@
     ],
     "require": {
       "arcanedev/no-captcha": "^9.0",
-      "guzzlehttp/guzzle": "^6.3"
+      "guzzlehttp/guzzle": "^6.3",
+      "inetstudio/admin-panel": "1.8.*"
     },
     "autoload": {
       "psr-4": {
-        "InetStudio\\Feedback\\": "src/"
+        "InetStudio\\FeedbackPackage\\": "package/src",
+        "InetStudio\\FeedbackPackage\\Feedback\\": "entities/messages/src"
       }
     },
     "extra": {
       "laravel": {
         "providers": [
-          "InetStudio\\Feedback\\Providers\\FeedbackBindingsServiceProvider",
-          "InetStudio\\Feedback\\Providers\\FeedbackServiceProvider"
+          "InetStudio\\FeedbackPackage\\Providers\\ServiceProvider",
+          "InetStudio\\FeedbackPackage\\Feedback\\Providers\\BindingsServiceProvider",
+          "InetStudio\\FeedbackPackage\\Feedback\\Providers\\ServiceProvider"
         ]
       }
     }
