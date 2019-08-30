@@ -17,7 +17,7 @@
     "autoload": {
       "psr-4": {
         "InetStudio\\FeedbackPackage\\": "package/src",
-        "InetStudio\\FeedbackPackage\\Feedback\\": "entities/messages/src"
+        "InetStudio\\FeedbackPackage\\Feedback\\": "entities/feedback/src"
       }
     },
     "extra": {
