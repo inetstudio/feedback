@@ -37,7 +37,6 @@ class ItemsService extends BaseService implements ItemsServiceContract
         $item = $this->getItemById($id, $params);
 
         if ($item->id && ! $item->is_read) {
-
             $this->saveModel(
                 [
                     'is_read' => true,

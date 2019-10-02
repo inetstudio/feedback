@@ -29,7 +29,7 @@ Route::group(
             ]
         )->parameters(
             [
-                'feedback' => 'id'
+                'feedback' => 'id',
             ]
         );
     }

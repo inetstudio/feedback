@@ -4,9 +4,9 @@ namespace InetStudio\FeedbackPackage\Feedback\Contracts\Http\Controllers\Back;
 
 use Illuminate\Http\Request;
 use InetStudio\FeedbackPackage\Feedback\Contracts\Http\Requests\Back\SaveItemRequestContract;
+use InetStudio\FeedbackPackage\Feedback\Contracts\Http\Responses\Back\Resource\EditResponseContract;
 use InetStudio\FeedbackPackage\Feedback\Contracts\Http\Responses\Back\Resource\SaveResponseContract;
 use InetStudio\FeedbackPackage\Feedback\Contracts\Http\Responses\Back\Resource\ShowResponseContract;
-use InetStudio\FeedbackPackage\Feedback\Contracts\Http\Responses\Back\Resource\EditResponseContract;
 use InetStudio\FeedbackPackage\Feedback\Contracts\Http\Responses\Back\Resource\IndexResponseContract;
 use InetStudio\FeedbackPackage\Feedback\Contracts\Http\Responses\Back\Resource\CreateResponseContract;
 use InetStudio\FeedbackPackage\Feedback\Contracts\Http\Responses\Back\Resource\DestroyResponseContract;
