@@ -48,6 +48,12 @@ class IndexTransformer extends BaseTransformer implements IndexTransformerContra
             'email' => $item['email'],
             'message' => Str::limit($item['message'], 100, '...'),
             'created_at' => (string) $item['created_at'],
+            'material' => view(
+                'admin.module.feedback::back.partials.datatables.material',
+                [
+                    'item' => $item['feedbackable'],
+                ]
+            )->render(),
             'actions' => view(
                 'admin.module.feedback::back.partials.datatables.actions',
                 [

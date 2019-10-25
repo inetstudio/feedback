@@ -46,7 +46,7 @@ class IndexService extends DataTable implements IndexServiceContract
 
         return DataTables::of($this->query())
             ->setTransformer($transformer)
-            ->rawColumns(['checkbox', 'response', 'read', 'actions'])
+            ->rawColumns(['checkbox', 'response', 'read', 'material', 'actions'])
             ->make();
     }
 
@@ -61,7 +61,7 @@ class IndexService extends DataTable implements IndexServiceContract
             [
                 'columns' => ['created_at'],
             ]
-        );
+        )->with(['feedbackable']);
 
         return $query;
     }
@@ -107,6 +107,13 @@ class IndexService extends DataTable implements IndexServiceContract
             ['data' => 'email', 'name' => 'email', 'title' => 'Email'],
             ['data' => 'message', 'name' => 'message', 'title' => 'Сообщение'],
             ['data' => 'created_at', 'name' => 'created_at', 'title' => 'Дата создания'],
+            [
+                'data' => 'material',
+                'name' => 'material',
+                'title' => 'Материал',
+                'orderable' => false,
+                'searchable' => false,
+            ],
             [
                 'data' => 'actions',
                 'name' => 'actions',

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use InetStudio\ACL\Users\Models\Traits\HasUser;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use InetStudio\AdminPanel\Base\Models\Traits\Scopes\BuildQueryScopeTrait;
 use InetStudio\FeedbackPackage\Feedback\Contracts\Models\FeedbackModelContract;
 
@@ -42,6 +43,8 @@ class FeedbackModel extends Model implements FeedbackModelContract
         'email',
         'message',
         'response',
+        'feedbackable_type',
+        'feedbackable_id',
     ];
 
     /**
@@ -72,6 +75,8 @@ class FeedbackModel extends Model implements FeedbackModelContract
             'email',
             'message',
             'response',
+            'feedbackable_type',
+            'feedbackable_id',
         ];
     }
 
@@ -140,6 +145,26 @@ class FeedbackModel extends Model implements FeedbackModelContract
     }
 
     /**
+     * Сеттер атрибута feedbackable_type.
+     *
+     * @param $value
+     */
+    public function setFeedbackableTypeAttribute($value): void
+    {
+        $this->attributes['feedbackable_type'] = trim(strip_tags($value));
+    }
+
+    /**
+     * Сеттер атрибута feedbackable_id.
+     *
+     * @param $value
+     */
+    public function setFeedbackableIdAttribute($value): void
+    {
+        $this->attributes['feedbackable_id'] = (int) trim(strip_tags($value));
+    }
+
+    /**
      * Геттер атрибута type.
      *
      * @return string
@@ -162,4 +187,14 @@ class FeedbackModel extends Model implements FeedbackModelContract
     }
 
     use HasUser;
+
+    /**
+     * Полиморфное отношение с остальными моделями.
+     *
+     * @return MorphTo
+     */
+    public function feedbackable(): MorphTo
+    {
+        return $this->morphTo();
+    }
 }
