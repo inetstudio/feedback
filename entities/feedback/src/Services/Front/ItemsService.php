@@ -34,7 +34,7 @@ class ItemsService extends BaseService implements ItemsServiceContract
      */
     public function save(array $data): FeedbackModelContract
     {
-        $usersService = app()->make('InetStudio\ACL\Users\Contracts\Services\Front\UsersServiceContract');
+        $usersService = app()->make('InetStudio\ACL\Users\Contracts\Services\Front\ItemsServiceContract');
 
         $request = request();
 
