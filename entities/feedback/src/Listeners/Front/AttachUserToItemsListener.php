@@ -14,8 +14,7 @@ class AttachUserToItemsListener implements AttachUserToItemsListenerContract
      * Handle the event.
      *
      * @param $event
-     *
-     * @return void
+
      *
      * @throws BindingResolutionException
      */

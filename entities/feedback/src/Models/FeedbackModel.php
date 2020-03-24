@@ -60,8 +60,6 @@ class FeedbackModel extends Model implements FeedbackModelContract
 
     /**
      * Загрузка модели.
-     *
-     * @return void
      */
     protected static function boot()
     {
