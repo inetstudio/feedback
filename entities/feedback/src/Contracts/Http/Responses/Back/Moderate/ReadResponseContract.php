@@ -4,9 +4,6 @@ namespace InetStudio\FeedbackPackage\Feedback\Contracts\Http\Responses\Back\Mode
 
 use Illuminate\Contracts\Support\Responsable;
 
-/**
- * Interface ReadResponseContract.
- */
 interface ReadResponseContract extends Responsable
 {
 }

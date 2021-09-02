@@ -2,43 +2,21 @@
 
 namespace InetStudio\FeedbackPackage\Feedback\Http\Responses\Back\Resource;
 
-use InetStudio\AdminPanel\Base\Http\Responses\BaseResponse;
 use InetStudio\FeedbackPackage\Feedback\Contracts\Services\Back\ItemsServiceContract;
 use InetStudio\FeedbackPackage\Feedback\Contracts\Http\Responses\Back\Resource\ShowResponseContract;
 
-/**
- * Class ShowResponse.
- */
-class ShowResponse extends BaseResponse implements ShowResponseContract
+class ShowResponse implements ShowResponseContract
 {
-    /**
-     * @var ItemsServiceContract
-     */
-    protected $resourceService;
+    public function __construct(
+        protected ItemsServiceContract $resourceService
+    ) {}
 
-    /**
-     * ShowResponse constructor.
-     *
-     * @param  ItemsServiceContract  $resourceService
-     */
-    public function __construct(ItemsServiceContract $resourceService)
-    {
-        $this->resourceService = $resourceService;
-    }
-
-    /**
-     * Prepare response data.
-     *
-     * @param $request
-     *
-     * @return array
-     */
-    protected function prepare($request): array
+    public function toResponse($request)
     {
         $id = $request->route('id');
 
         $item = $this->resourceService->getItemById($id);
 
-        return $item->toArray();
+        return response()->json($item->toArray());
     }
 }

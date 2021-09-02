@@ -1,2 +1,3 @@
-let feedback = require('./package/feedback');
+import {feedback} from './package/feedback';
+
 feedback.init();

@@ -4,9 +4,6 @@ namespace InetStudio\FeedbackPackage\Feedback\Contracts\Http\Responses\Back\Reso
 
 use Illuminate\Contracts\Support\Responsable;
 
-/**
- * Interface IndexResponseContract.
- */
 interface IndexResponseContract extends Responsable
 {
 }
