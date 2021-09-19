@@ -1,3 +1,5 @@
+import Swal from 'sweetalert2';
+
 export let feedback = {
     init: function () {
         let $table = $('#feedback_table .dataTable');
@@ -13,9 +15,9 @@ export let feedback = {
             let url = $btn.data('url');
             let data = $table.find('.group-element').serializeJSON();
 
-            swal({
+            Swal.fire({
                 title: "Вы уверены?",
-                type: "warning",
+                icon: "warning",
                 showCancelButton: true,
                 cancelButtonText: "Отмена",
                 confirmButtonColor: "#DD6B55",
@@ -34,9 +36,9 @@ export let feedback = {
                             $('#feedback_all').iCheck('uncheck');
 
                             if (data.success === true) {
-                                swal({
+                                Swal.fire({
                                     title: "Записи обновлены",
-                                    type: "success"
+                                    icon: "success"
                                 });
                                 $table.DataTable().ajax.reload(null, false);
                             } else {
@@ -89,9 +91,9 @@ export let feedback = {
                         $tableContent.toggleClass('sk-loading');
 
                         if (data.success === true) {
-                            swal({
+                            Swal.fire({
                                 title: "Запись изменена",
-                                type: "success"
+                                icon: "success"
                             });
                         } else {
                             showError('Произошла ошибка');
@@ -107,10 +109,10 @@ export let feedback = {
         });
 
         function showError(text) {
-            swal({
+            Swal.fire({
                 title: "Ошибка",
                 text: text,
-                type: "error"
+                icon: "error"
             });
         }
     }
