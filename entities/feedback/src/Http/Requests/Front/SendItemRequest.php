@@ -38,6 +38,8 @@ class SendItemRequest extends FormRequest implements SendItemRequestContract
             'email.max' => 'Поле «Email» не должно превышать 255 символов',
             'email.email' => 'Поле «Email» должно содержать значение в корректном формате',
 
+            'phone.max' => 'Поле «Телефон» не должно превышать 255 символов',
+
             'g-recaptcha-response.required' => 'Поле «Капча» обязательно для заполнения',
             'g-recaptcha-response.captcha' => 'Неверный код капча',
         ];
@@ -58,6 +60,7 @@ class SendItemRequest extends FormRequest implements SendItemRequestContract
             $rules = array_merge($rules, [
                 'name' => 'required|max:255',
                 'email' => 'required|max:255|email',
+                'phone' => 'nullable|max:255',
                 'g-recaptcha-response' => [
                     'required',
                     new CaptchaRule,
