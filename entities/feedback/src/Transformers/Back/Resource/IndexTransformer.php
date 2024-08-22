@@ -46,6 +46,7 @@ class IndexTransformer extends BaseTransformer implements IndexTransformerContra
             )->render(),
             'name' => $item['name'],
             'email' => $item['email'],
+            'phone' => $item['phone'],
             'message' => Str::limit($item['message'], 100, '...'),
             'created_at' => (string) $item['created_at'],
             'material' => view(
