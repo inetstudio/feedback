@@ -44,6 +44,7 @@ class ItemsService extends BaseService implements ItemsServiceContract
                 'user_id' => $usersService->getUserId(),
                 'name' => $usersService->getUserName($request),
                 'email' => $usersService->getUserEmail($request),
+                'phone' => $data['phone'] ?? null,
                 'feedbackable_type' => $data['feedbackable_type'] ?? null,
                 'feedbackable_id' => $data['feedbackable_id'] ?? null,
             ]
