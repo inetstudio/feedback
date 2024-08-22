@@ -41,6 +41,7 @@ class ItemsExport implements ItemsExportContract
             $item->id,
             $item->name,
             $item->email,
+            $item->phone,
             $item->message,
             Date::dateTimeToExcel($item->created_at),
         ];
@@ -55,6 +56,7 @@ class ItemsExport implements ItemsExportContract
             '#',
             'Имя',
             'Email',
+            'Телефон',
             'Сообщение',
             'Время отправки',
         ];
@@ -67,7 +69,7 @@ class ItemsExport implements ItemsExportContract
     {
         return [
             'A' => NumberFormat::FORMAT_NUMBER,
-            'E' => NumberFormat::FORMAT_DATE_DATETIME,
+            'F' => NumberFormat::FORMAT_DATE_DATETIME,
         ];
     }
 }
