@@ -125,7 +125,7 @@ class FeedbackModel extends Model implements FeedbackModelContract
      *
      * @param $value
      */
-    public function setEmailAttribute($value): void
+    public function setPhoneAttribute($value): void
     {
         $this->attributes['phone'] = ($value) ? trim(str_replace(['+', '-', '(', ')', ' '], '', (string) $value)) : null;
     }
