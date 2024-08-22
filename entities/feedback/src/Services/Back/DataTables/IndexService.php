@@ -105,6 +105,7 @@ class IndexService extends DataTable implements IndexServiceContract
             ['data' => 'response', 'name' => 'response', 'title' => 'Ответ', 'searchable' => false],
             ['data' => 'name', 'name' => 'name', 'title' => 'Имя'],
             ['data' => 'email', 'name' => 'email', 'title' => 'Email'],
+            ['data' => 'phone', 'name' => 'phone', 'title' => 'Телефон'],
             ['data' => 'message', 'name' => 'message', 'title' => 'Сообщение'],
             ['data' => 'created_at', 'name' => 'created_at', 'title' => 'Дата создания'],
             [
@@ -147,7 +148,7 @@ class IndexService extends DataTable implements IndexServiceContract
         $translation = trans('admin::datatables');
 
         return [
-            'order' => [6, 'desc'],
+            'order' => [7, 'desc'],
             'paging' => true,
             'pagingType' => 'full_numbers',
             'searching' => true,
