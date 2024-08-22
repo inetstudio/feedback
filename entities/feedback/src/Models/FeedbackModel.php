@@ -41,6 +41,7 @@ class FeedbackModel extends Model implements FeedbackModelContract
         'user_id',
         'name',
         'email',
+        'phone',
         'message',
         'response',
         'feedbackable_type',
@@ -71,6 +72,7 @@ class FeedbackModel extends Model implements FeedbackModelContract
             'user_id',
             'name',
             'email',
+            'phone',
             'message',
             'response',
             'feedbackable_type',
@@ -116,6 +118,16 @@ class FeedbackModel extends Model implements FeedbackModelContract
     public function setEmailAttribute($value): void
     {
         $this->attributes['email'] = trim(strip_tags($value));
+    }
+
+    /**
+     * Сеттер атрибута phone.
+     *
+     * @param $value
+     */
+    public function setEmailAttribute($value): void
+    {
+        $this->attributes['phone'] = ($value) ? trim(str_replace(['+', '-', '(', ')', ' '], '', (string) $value)) : null;
     }
 
     /**
